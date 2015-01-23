@@ -1,0 +1,49 @@
+/* HTML skeleton. */
+
+html {
+	background-color: #FFDEAD;
+	font-weight: 600;
+}
+
+header {
+	min-height: 150px;
+}
+
+/* Body. */
+h1 {
+	font-family: "Lucida Console";
+	color: #7D3E11;
+}
+
+/* HTML Forms. */
+
+fieldset {
+	margin:auto;
+	text-align: left;
+	width: 400px;
+}
+
+label {
+	float: left;
+	width: 175px;
+	margin-left: 5px;
+}
+
+select, input.fields {
+	width: 200px;
+	background-color: #FFEFD5;
+}
+
+input.buttons {
+	background-color: white;
+	margin-right: 5px;
+	width: 100px;
+	background-color: #FFEFD5;
+}
+
+/* Footer. */
+
+p.footer {
+	text-align: center;
+	font-size: 10px;
+}
