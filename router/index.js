@@ -20,6 +20,33 @@ module.exports=function(app)
 				res.render('index', {groupNames: responseArgs.trim()});
 			}
 		});
-		
 	});
+	
+	app.get('/student', findStudent, findGroup, renderStudents);
+	
+	function findStudent(req, res, next) {
+		var dbRequest = 'SELECT * FROM Students WHERE IDCard = \'' + req.query['id'] + '\' AND FirstName = \'' + req.query['firstname'] + '\' AND LastName = \'' + req.query['lastname'] + '\' AND GroupID = \'' + req.query['group'] + '\'';
+		
+		db.all(dbRequest, function(error, rows) {
+			if(rows.length !== 0) {
+				req.students = rows;
+				return next();
+			}
+			res.render('incorrect_student');
+		});
+	}
+	
+	function findGroup(req, res, next) {
+		dbRequest = 'SELECT * FROM Groups WHERE Name = \'' + req.query['group'] + '\''; 
+			
+		db.all(dbRequest, function(error, rows) {
+			req.groups = rows;
+			next();
+		});
+	}
+	
+	function renderStudents(req, res) {
+		res.render('student', {IDCard: req.students[0].IDCard, group: req.groups[0].Name, firstName: req.students[0].FirstName, lastName: req.students[0].LastName, lecture: req.students[0].LectureID, startHour: req.groups[0].StartHour, endHour: req.groups[0].EndHour, professor: req.groups[0].Professor});
+	}
+
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+		<meta charset="UTF-8">
+		
+		<title>
+			Dean's office. Student's area.
+		</title>
+	</head>
+	<body>
+		<header>
+			<h1>
+				Dean's office. Student's area.
+			</h1>
+			<h2 class="header">
+				<%= firstName %> <%= lastName %>, ID: <%= IDCard %>.
+			</h2>
+		</header>
+		<main>
+			<div>
+				<h3>
+					Group information.
+				</h3>
+				<p>
+					Group ID name: <%= group %>. <br/>
+					Professor name: <%= professor %>. <br/>
+					Classes start at: <%= startHour %> and end at: <%= endHour %>. 
+				</p>
+			</div>
+			
+			<br/><br/>
+			<p style="text-align: center;"><a href="/">Click here to return to the form.</a></p><br/>
+		</main>
+		<footer>
+			<% include footer.ejs %>
+		</footer>
+	</body>
+</html>

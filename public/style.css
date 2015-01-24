@@ -15,6 +15,31 @@ h1 {
 	color: #7D3E11;
 }
 
+h2.error {
+	text-align: center;
+	color: red;
+}
+
+h2.header {
+	font-family: "Lucida Console";
+	color: #7D3E11;
+	letter-spacing: 2px;
+}
+
+h3 {
+	font-family: Arial;
+	color: #7D3E11;
+	letter-spacing: 1px;
+}
+
+p.error {
+	text-align: center;
+}
+
+a {
+	color: black;
+}
+
 /* HTML Forms. */
 
 fieldset {
