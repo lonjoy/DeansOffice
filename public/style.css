@@ -9,6 +9,10 @@ header {
 	min-height: 150px;
 }
 
+div.outline {
+	margin-left: 50px;
+}
+
 /* Body. */
 h1 {
 	font-family: "Lucida Console";
@@ -32,8 +36,18 @@ h3 {
 	letter-spacing: 1px;
 }
 
+h4 {
+	color: #7D3E11;
+}
+
 p.error {
 	text-align: center;
+}
+
+td {
+	text-align: center;
+	height: 20px;
+	width: 120px;
 }
 
 a {
