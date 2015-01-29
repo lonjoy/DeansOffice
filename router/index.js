@@ -22,7 +22,7 @@ module.exports=function(app)
 		});
 	});
 	
-	app.get('/student', findStudent, findGroup, findClasses, findGrades, renderStudent);
+	app.get('/student', findStudent, findGroup, findClasses, findGrades, findStudentsAndLectures, findAvailableLectures, renderStudent);
 	
 	function findStudent(req, res, next) {
 		var dbRequest = 'SELECT * FROM Students WHERE IDCard = \'' + req.query['id'] + '\' AND FirstName = \'' + req.query['firstname'] + '\' AND LastName = \'' + req.query['lastname'] + '\' AND GroupID = \'' + req.query['group'] + '\'';
@@ -46,7 +46,7 @@ module.exports=function(app)
 	}
 	
 	function findClasses(req, res, next) {
-		dbRequest = 'SELECT * FROM Classes WHERE GroupName = \'' + req.query['group'] + '\'';
+		dbRequest = 'SELECT * FROM Classes WHERE GroupName = \'' + req.query['group'] + '\' ORDER BY Date';
 		
 		db.all(dbRequest, function(error, rows) {
 			req.classes = rows;
@@ -68,8 +68,26 @@ module.exports=function(app)
 		});
 	}
 	
+	function findStudentsAndLectures(req, res, next) {
+		dbRequest = 'SELECT * FROM Students LEFT JOIN Lectures ON Students.IDCard = Lectures.StudentID AND Students.GroupID = Lectures.GroupID WHERE Students.GroupID = \'' + req.query['group'] + '\''
+		
+		db.all(dbRequest, function(error, rows) {
+			req.studentsList = rows;
+			next();
+		});
+	}
+	
+	function findAvailableLectures(req, res, next) {
+		dbRequest = 'SELECT * FROM Lectures WHERE StudentID IS NULL AND GroupID = \'' + req.query['group'] + '\'';
+		
+		db.all(dbRequest, function(error, rows) {
+			req.lectures = rows;
+			next();
+		});
+	}
+	
 	function renderStudent(req, res) {
-		res.render('student', {IDCard: req.students[0].IDCard, group: req.groups[0].Name, firstName: req.students[0].FirstName, lastName: req.students[0].LastName, lecture: req.students[0].LectureID, startHour: req.groups[0].StartHour, endHour: req.groups[0].EndHour, professor: req.groups[0].Professor, classes: req.classes, grades: req.grades, url_addr: req.originalUrl});
+		res.render('student', {IDCard: req.students[0].IDCard, group: req.groups[0].Name, firstName: req.students[0].FirstName, lastName: req.students[0].LastName, lecture: req.students[0].LectureID, studentNews: req.students[0].News, startHour: req.groups[0].StartHour, endHour: req.groups[0].EndHour, professor: req.groups[0].Professor, status: req.groups[0].LectureStatus, groupNews: req.groups[0].News, classes: req.classes, grades: req.grades, list: req.studentsList, lectures: req.lectures, url_addr: req.originalUrl});
 	}
 
 }
